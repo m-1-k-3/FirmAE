@@ -1,5 +1,5 @@
 FROM ubuntu:20.04
-MAINTAINER Mingeun Kim <pr0v3rbs@kaist.ac.kr>, Minkyo Seo <0xsaika@gmail.com>
+LABEL org.opencontainers.image.authors="Mingeun Kim <pr0v3rbs@kaist.ac.kr>, Minkyo Seo <0xsaika@gmail.com>"
 
 RUN apt-get update
 RUN apt-get install -y apt-utils
@@ -20,6 +20,7 @@ RUN wget https://github.com/ReFirmLabs/binwalk/archive/refs/tags/v2.3.4.tar.gz &
     tar -xf v2.3.4.tar.gz && \
     cd binwalk-2.3.4 && \
     sed -i 's/^install_ubireader//g' deps.sh && \
+    sed -i 's/^REQUIRED_UTILS="wget tar python"/REQUIRED_UTILS="wget tar python3"/g' deps.sh && \
     echo y | ./deps.sh && \
     python3 setup.py install
 RUN apt-get install -y mtd-utils gzip bzip2 tar arj lhasa p7zip p7zip-full cabextract fusecram cramfsswap squashfs-tools sleuthkit default-jdk cpio lzop lzma srecord zlib1g-dev liblzma-dev liblzo2-dev
